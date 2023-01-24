@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulation with images</title>
+</head>
+<body>
+    <h1>Manipulation images by <span class="colorClass">CSS variables and JS </span></h1>
+
+    <div class="options">
+        <label for="spacing">Spacing</label>
+        <input type="range" min="10" max="200" value="10" name="spacing" id="" data-sizing="px">
+
+        <label for="blur">Blur</label>
+        <input type="range" min="0" max="25" value="10" name="blur" id="" data-sizing="px">
+
+        <label for="base">Base color</label>
+        <input type="color" name="base" value="#FFC600" id="">
+    </div>
+
+    <img src="example.jpg" alt="">
+
+    <style>
+        :root {
+            --base: #ffc600;
+            --spacing: 50px;
+            --blur: 2px;
+        }
+
+        img{
+            padding: var(--spacing);
+            background-color: var(--base);
+            filter: blur(var(--blur));;
+            max-width: 600px;
+            max-height: 600px;
+        }
+
+        body {
+            background-color: rgb(31, 14, 105);
+            text-align: center;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 300;
+            font-size: 50px;
+        }
+
+        h1{
+            font-size: 38px;
+        }
+
+        .colorClass {color: var(--base);}
+    </style>
+    <script>
+        const inputs = document.querySelectorAll('.options input');
+        
+        function handleUpdate() {
+            const suffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+
+        inputs.forEach(inputs => inputs.addEventListener('change', handleUpdate));
+        inputs.forEach(inputs => inputs.addEventListener('mousemove', handleUpdate));
+    </script>
+</body>
+</html>
